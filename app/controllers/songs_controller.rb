@@ -44,10 +44,19 @@ class SongsController < ApplicationController
     redirect_to songs_path
   end
 
+  def artist_name=(name)
+    self.artist = Artist.find_or_create_by(name: name)
+  end
+
+  def artist_name
+    self.artist ? self.artist.name : nil
+  end
+
+
   private
 
   def song_params
-    params.require(:song).permit(:title)
+    params.require(:song).permit(:title, :artist_name, :genre_id, notes:[])
   end
 end
 
